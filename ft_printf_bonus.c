@@ -6,11 +6,12 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:23:00 by alkane            #+#    #+#             */
-/*   Updated: 2022/01/01 20:49:15 by alkane           ###   ########.fr       */
+/*   Updated: 2022/01/04 21:31:37 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
+#include <stdio.h>
 
 static unsigned int	find_type(const char *format)
 {
@@ -79,9 +80,6 @@ static unsigned int	flag_processor(char *format, t_flags *flag_struct)
 
 static void	print_specifer(char specifer, va_list args, int *ch_out, t_flags f)
 {
-	// unsigned long	p;
-	// long			i;
-	// unsigned long	u;
 	if (specifer == '%')
 	{
 		write(1, "%", 1);
@@ -144,8 +142,10 @@ int	ft_printf(const char *format, ...)
 // int main(void)
 // {
 // 	// s = "string literal";
-// 	ft_printf("%i%i%i\n",23, -2, 37);
-// 	// ft_printf("%i%i%i%i%i%i%i", 10, 23, -2, 37, 200, -9999, 977779);
+// 	printf("%010.5i\n",230);
+// 	ft_printf("%010.5i\n",230);
+// 	// printf("%.4d %.2d %.20d %.0d %.0d %.d %.d %.d\n", 127, 0, 1023, 0, (int)-2147483648, 0, 1, (int)-2147483648);
+// 	// ft_printf("%.4d %.2d %.20d %.0d %.0d %.d %.d %.d", 127, 0, 1023, 0, (int)-2147483648, 0, 1, (int)-2147483648);
 // 	return(0);
 // }
 
