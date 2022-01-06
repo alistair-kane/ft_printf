@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 14:51:51 by alkane            #+#    #+#             */
-/*   Updated: 2022/01/04 21:31:13 by alkane           ###   ########.fr       */
+/*   Updated: 2022/01/06 19:47:00 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void    print_s(char *temp, int *ch_out, t_flags f)
 		temp = "(null)";
 	s = ft_calloc(ft_strlen(temp) + 1, sizeof(char));
 	ft_strlcpy(s,temp,ft_strlen(temp) + 1);
-	if (f.precision >= 0 && !ft_strncmp(temp, "(null)", 6) 
-		&& f.precision < (int)ft_strlen(s))
-		s[0] = '\0';
 	if (f.precision >= 0 && f.precision < (int)ft_strlen(s))
 		s[f.precision] = '\0';
 	if (f.l_align)
@@ -119,20 +116,22 @@ void	print_d_i(int i_d, int *ch_out, t_flags f)
 		free(char_holder);
 	}
 	// ft_strlcat(i_buf, converted, (ft_strlen(i_buf) + ft_strlen(converted) + 1));
-	if ((long)i_d < 0)
+	if (i_d < 0)
 	{
 		ft_memmove(i_buf + 1, i_buf, ft_strlen(i_buf));
 		i_buf[0] = '-';
 	}
 	if (f.l_align)
 		ft_strlcat(i_buf, converted, (ft_strlen(i_buf) + ft_strlen(converted) + 1));
-	else if (i_buf && (f.width > (int)ft_strlen(i_buf)))
+	if (f.width > (int)ft_strlen(i_buf))
 	{
+		char_holder = ft_calloc(f.width - ft_strlen(i_buf), (size_t)1);
 		ft_memset(char_holder, ' ', (f.width - ft_strlen(i_buf)));
 		ft_memmove(i_buf + f.width, i_buf, ft_strlen(i_buf));
 		ft_strlcat(i_buf, char_holder, (f.width - ft_strlen(i_buf)));
+		free(char_holder);
 	}
-	else
+	if (!f.l_align)
 		ft_strlcat(i_buf, converted, (ft_strlen(i_buf) + ft_strlen(converted) + 1));
 		
 	// while (i_buf && f.width > (int)ft_strlen(i_buf))
