@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 14:51:51 by alkane            #+#    #+#             */
-/*   Updated: 2022/01/06 19:47:00 by alkane           ###   ########.fr       */
+/*   Updated: 2022/01/07 04:05:07 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,12 @@ void	print_p(unsigned long p, int *ch_out, t_flags f)
 
 void	print_d_i(int i_d, int *ch_out, t_flags f)
 {
-	long i;
-	char *i_buf;
-	char *converted;
-	char *char_holder;
+	long	i;
+	char	*i_buf;
+	char	*converted;
+	char	*char_holder;
+	char	*temp;
+	int		extra_width;
 
 	i = (long)i_d;
 	i_buf = ft_calloc(256, (size_t)1);
@@ -115,36 +117,36 @@ void	print_d_i(int i_d, int *ch_out, t_flags f)
 		ft_strlcat(i_buf, char_holder, f.precision);
 		free(char_holder);
 	}
-	// ft_strlcat(i_buf, converted, (ft_strlen(i_buf) + ft_strlen(converted) + 1));
-	if (i_d < 0)
+	ft_strlcat(i_buf, converted, 256);
+	if (i_d < 0 || f.plus || f.space)
 	{
 		ft_memmove(i_buf + 1, i_buf, ft_strlen(i_buf));
 		i_buf[0] = '-';
+		if (f.plus && i_d >= 0)
+			i_buf[0] = '+';
+		else if (f.space && i_d >= 0)
+			i_buf[0] = ' ';
 	}
-	if (f.l_align)
-		ft_strlcat(i_buf, converted, (ft_strlen(i_buf) + ft_strlen(converted) + 1));
-	if (f.width > (int)ft_strlen(i_buf))
+
+	extra_width = f.width - ft_strlen(i_buf);
+	if (extra_width > 0)
 	{
-		char_holder = ft_calloc(f.width - ft_strlen(i_buf), (size_t)1);
-		ft_memset(char_holder, ' ', (f.width - ft_strlen(i_buf)));
-		ft_memmove(i_buf + f.width, i_buf, ft_strlen(i_buf));
-		ft_strlcat(i_buf, char_holder, (f.width - ft_strlen(i_buf)));
+		char_holder = ft_calloc(extra_width + 1, (size_t)1);
+		ft_memset(char_holder, ' ', extra_width);
+		if (f.l_align)
+			ft_strlcat(i_buf, char_holder, 256);
+		if (!f.l_align)
+		{
+			temp = ft_calloc(ft_strlen(i_buf) + 1, (size_t)1);
+			ft_strlcpy(temp, i_buf, 256);
+			ft_memset(i_buf, '\0', 256);
+			ft_strlcat(i_buf, char_holder, 256);
+			ft_strlcat(i_buf, temp, 256);
+			free(temp);
+		}
 		free(char_holder);
 	}
-	if (!f.l_align)
-		ft_strlcat(i_buf, converted, (ft_strlen(i_buf) + ft_strlen(converted) + 1));
-		
-	// while (i_buf && f.width > (int)ft_strlen(i_buf))
-	// {
-	// 	if (f.zero)
-	// 		write(1, " ", 1);
-	// 	else
-	// 		write(1, "0", 1);
-	// 	(*ch_out)++;
-	// 	f.width--;
-	// }
 	*ch_out += ft_strlen(i_buf);
-	// if (!f.l_align)
 	ft_putstr_fd(i_buf, 1);
 	free(i_buf);
 }
