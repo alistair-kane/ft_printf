@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:23:00 by alkane            #+#    #+#             */
-/*   Updated: 2022/01/07 04:00:55 by alkane           ###   ########.fr       */
+/*   Updated: 2022/01/08 08:44:23 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
-#include <stdio.h>
 
 static unsigned int	find_type(const char *format)
 {
@@ -93,22 +92,12 @@ static void	print_specifer(char specifer, va_list args, int *ch_out, t_flags f)
 		print_p(va_arg(args, unsigned long), ch_out, f);
 	if (specifer == 'd' || specifer == 'i')
 		print_d_i(va_arg(args, int), ch_out, f);
-	
-	// if (specifer == 'u')
-	// {
-	// 	u = va_arg(args, unsigned int);
-	// 	*ch_out += base_translate(u, 10, "0123456789");
-	// }
-	// if (specifer == 'x')
-	// {
-	// 	p = va_arg(args, unsigned long);
-	// 	*ch_out += base_translate(p, 16, "0123456789abcdef");
-	// }
-	// if (specifer == 'X')
-	// {
-	// 	p = va_arg(args, unsigned long);
-	// 	*ch_out += base_translate(p, 16, "0123456789ABCDEF");
-	// }
+	if (specifer == 'u')
+		print_u(va_arg(args, unsigned int), ch_out, f);
+	if (specifer == 'x')
+		print_x(va_arg(args, unsigned long), ch_out, f);
+	if (specifer == 'X')
+		print_bigx(va_arg(args, unsigned long), ch_out, f);
 }
 
 int	ft_printf(const char *format, ...)
@@ -138,38 +127,3 @@ int	ft_printf(const char *format, ...)
 	}
 	return (ch_written);
 }
-
-// int main(void)
-// {
-// 	printf("%042.2i\n", 42000);
-// 	printf("%042.20i", 42000);
-// 	return(0);
-// }
-
-// conversion specifiers:
-// c,s,p,d,i,u,x,X %
-// %[flag][min width][.precision][length modifier][conversion specifier]
-
-// flags:
-// "-" Left-justify within the given field width; Right justification is the default
-// "0" Left-pads the number with zeroes (0) instead of spaces when padding is specified
-//		**ignored if - is present
-
-// "." Precision specifier,
-//                        c,p egal
-//                          s maximum number of chars printed
-//                  d,i,u,x,X number of digits written
-
-// "#" Value is preceeded with 0x or 0X respectively for values different than zero
-//                        x,X
-
-// " " when no sign is written, insert blank space before the value
-//		**ignored when + is present
-
-// "+" Forces to preceed the result with a plus or minus sign (+ or -) even for positive numbers. 
-//                          by default, only negative numbers are preceded with a - sign
-
-// find the (full) value <- recursive option avail?
-// strchr to check appropriate flags
-
-// "%014Xc  %020Xs  %02.5XX  %0.Xi"
