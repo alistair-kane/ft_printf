@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conversions_pdiuxX.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 07:33:32 by alistair          #+#    #+#             */
-/*   Updated: 2022/01/08 08:41:07 by alistair         ###   ########.fr       */
+/*   Updated: 2022/01/09 18:03:22 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	print_u(unsigned int u, int *ch_out)
 	free(buf);
 }
 
-void	print_x(unsigned long x, int *ch_out)
+void	print_x(unsigned int x, int *ch_out)
 {
 	char	*buf;
 	char	*converted;
@@ -82,16 +82,16 @@ void	print_x(unsigned long x, int *ch_out)
 	free(buf);
 }
 
-void	print_bigx(unsigned long X, int *ch_out)
+void	print_bigx(unsigned int bigx, int *ch_out)
 {
 	char	*buf;
 	char	*converted;
 
 	buf = ft_calloc(256, sizeof(char));
-	if (!X)
+	if (!bigx)
 		converted = "0";
 	else
-		converted = base_translate(X, 16, "0123456789ABCDEF");
+		converted = base_translate(bigx, 16, "0123456789ABCDEF");
 	ft_strlcpy(buf, converted, ft_strlen(converted) + 1);
 	*ch_out += ft_strlen(buf);
 	ft_putstr_fd(buf, 1);

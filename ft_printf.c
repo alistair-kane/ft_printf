@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:23:00 by alkane            #+#    #+#             */
-/*   Updated: 2022/01/08 08:44:11 by alistair         ###   ########.fr       */
+/*   Updated: 2022/01/09 18:02:25 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static void	print_specifer(char specifer, va_list args, int *ch_out)
 	if (specifer == 'u')
 		print_u(va_arg(args, unsigned int), ch_out);
 	if (specifer == 'x')
-		print_x(va_arg(args, unsigned long), ch_out);
+		print_x(va_arg(args, unsigned int), ch_out);
 	if (specifer == 'X')
-		print_bigx(va_arg(args, unsigned long), ch_out);
+		print_bigx(va_arg(args, unsigned int), ch_out);
 }
 
 int	ft_printf(const char *format, ...)
@@ -97,8 +97,8 @@ int	ft_printf(const char *format, ...)
 
 // int main(void)
 // {
-// 	// ft_printf("%01.1d", 0);
-// 	ft_printf("%u", 42);
+// 	printf("%x %x %x\n\n", LONG_MAX, LONG_MIN, ULONG_MAX);
+// 	ft_printf("%x %x %x", LONG_MAX, LONG_MIN, ULONG_MAX);
 // 	return(0);
 // }
 

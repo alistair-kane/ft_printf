@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:04:29 by alkane            #+#    #+#             */
-/*   Updated: 2022/01/08 08:44:34 by alistair         ###   ########.fr       */
+/*   Updated: 2022/01/09 18:06:57 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_flags
 	int	precision;
 }	t_flags;
 
+int		ft_printf(const char *format, ...);
+
 char	*base_translate(unsigned long n, unsigned int base, char *base_table);
 void	apply_precision(long val, int p_flag, char *converted, char *buf);
 void	right_align_d_i(int i_d, char **buf, t_flags f, char *char_holder);
@@ -39,7 +41,7 @@ void	print_s(char *temp, int *ch_out, t_flags f);
 void	print_p(unsigned long p, int *ch_out, t_flags f);
 void	print_d_i(int i_d, int *ch_out, t_flags f);
 void	print_u(unsigned int u, int *ch_out, t_flags f);
-void	print_x(unsigned long x, int *ch_out, t_flags f);
-void	print_bigx(unsigned long X, int *ch_out, t_flags f);
+void	print_x(unsigned int x, int *ch_out, t_flags f);
+void	print_bigx(unsigned int bigx, int *ch_out, t_flags f);
 
 #endif

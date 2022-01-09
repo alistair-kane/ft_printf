@@ -22,7 +22,7 @@ $(NAME): ${OBJS}
 bonus: ${BONUS_O}
 	$(MAKELIB)
 	cp libft/libft.a $(NAME)
-	ar rcs $(NAME) ${OBJS}
+	ar rcs $(NAME) ${BONUS_O}
 
 clean:
 	$(MAKELIB) clean

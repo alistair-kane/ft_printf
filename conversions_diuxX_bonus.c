@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conversions_diuxX_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 03:59:26 by alistair          #+#    #+#             */
-/*   Updated: 2022/01/08 06:26:07 by alistair         ###   ########.fr       */
+/*   Updated: 2022/01/09 18:09:52 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_u(unsigned int u, int *ch_out, t_flags f)
 	free(buf);
 }
 
-void	print_x(unsigned long x, int *ch_out, t_flags f)
+void	print_x(unsigned int x, int *ch_out, t_flags f)
 {
 	char	*buf;
 	char	*converted;
@@ -72,7 +72,7 @@ void	print_x(unsigned long x, int *ch_out, t_flags f)
 			ft_strlcat(buf, "0x", 3);
 		converted = base_translate(x, 16, "0123456789abcdef");
 	}
-	apply_precision((long)x, f.precision, converted, buf);
+	apply_precision(x, f.precision, converted, buf);
 	extra_width = 0;
 	apply_width_u_x_bigx(buf, f, &extra_width);
 	*ch_out += ft_strlen(buf);
@@ -80,22 +80,22 @@ void	print_x(unsigned long x, int *ch_out, t_flags f)
 	free(buf);
 }
 
-void	print_bigx(unsigned long X, int *ch_out, t_flags f)
+void	print_bigx(unsigned int bigx, int *ch_out, t_flags f)
 {
 	char	*buf;
 	char	*converted;
 	int		extra_width;
 
 	buf = ft_calloc(256, sizeof(char));
-	if (!X)
+	if (!bigx)
 		converted = "0";
 	else
 	{
 		if (f.hash)
 			ft_strlcat(buf, "0X", 3);
-		converted = base_translate(X, 16, "0123456789ABCDEF");
+		converted = base_translate(bigx, 16, "0123456789ABCDEF");
 	}
-	apply_precision((long)X, f.precision, converted, buf);
+	apply_precision(bigx, f.precision, converted, buf);
 	extra_width = 0;
 	apply_width_u_x_bigx(buf, f, &extra_width);
 	*ch_out += ft_strlen(buf);
